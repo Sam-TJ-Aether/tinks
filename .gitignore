@@ -1,0 +1,8 @@
+# Design reference files in root (not part of the site)
+/*.png
+/tinks final.gif
+/Satoshi-*.eot
+/Satoshi-*.woff
+
+# OS files
+.DS_Store

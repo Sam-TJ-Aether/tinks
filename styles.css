@@ -1,0 +1,532 @@
+/* ============================================================
+   TINKS — Styles
+   ============================================================ */
+
+/* --- Fonts --- */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('assets/Satoshi-Medium.eot');
+  src: url('assets/Satoshi-Medium.eot?#iefix') format('embedded-opentype'),
+       url('assets/Satoshi-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('assets/Satoshi-Regular.eot');
+  src: url('assets/Satoshi-Regular.eot?#iefix') format('embedded-opentype'),
+       url('assets/Satoshi-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Custom Properties --- */
+:root {
+  --color-text: #1a1a1a;
+  --color-text-muted: #6b6b6b;
+  --color-bg: #fafafa;
+  --color-btn-dark: #2a2a2a;
+  --color-btn-dark-hover: #444;
+  --color-btn-outline: #d0d0d0;
+
+  --font-heading: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Card dimensions — based on image aspect ratio 692:955 */
+  --card-width: 426px;
+  --card-height: 587px;
+  --card-gap: 28px;
+
+  --transition-flip: 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 0.25s ease;
+}
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* --- Gradient Mesh Background --- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 85%, rgba(255, 180, 120, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 55% at 50% 95%, rgba(255, 140, 180, 0.5) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 85% 80%, rgba(230, 100, 200, 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 90% 40% at 30% 100%, rgba(255, 200, 150, 0.45) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 35% at 70% 100%, rgba(255, 120, 200, 0.35) 0%, transparent 50%),
+    linear-gradient(180deg, #ffffff 0%, #ffffff 15%, var(--color-bg) 45%, transparent 100%);
+  pointer-events: none;
+}
+
+/* --- Header --- */
+.site-header {
+  padding: 32px 0 8px;
+  text-align: center;
+}
+
+.logo {
+  width: 60px;
+  height: auto;
+}
+
+/* --- Hero --- */
+.hero {
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto;
+  padding: 16px 24px 36px;
+}
+
+.hero-heading {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+}
+
+.hero-bio {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(0.95rem, 2vw, 1.05rem);
+  line-height: 1.65;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   CAROUSEL
+   ============================================================ */
+.carousel-section {
+  padding: 0 0 36px;
+}
+
+.carousel {
+  display: flex;
+  align-items: flex-end;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: var(--card-gap);
+  /* Extra top padding so front images can overflow upward */
+  padding: 60px calc(50vw - var(--card-width) / 2) 20px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+/* ============================================================
+   CARDS — The PNG images ARE the visual card.
+   No background, shadow, or border-radius on the container.
+   ============================================================ */
+.card {
+  flex-shrink: 0;
+  width: var(--card-width);
+  height: var(--card-height);
+  perspective: 1200px;
+  scroll-snap-align: center;
+  overflow: visible;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+.card.dimmed {
+  opacity: 0.5;
+  transform: scale(0.93);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform var(--transition-flip);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* --- Card Faces --- */
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.card-front {
+  /* Allow artwork to overflow above the card */
+  overflow: visible;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+
+/* Disable pointer events on the hidden face so clicks reach the visible one */
+.card:not(.flipped) .card-back { pointer-events: none; }
+.card.flipped .card-front { pointer-events: none; }
+
+/* --- Card Images — the image IS the card visual (Layer 1) --- */
+.card-img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+/* --- Front Overlay (Layer 2) — full card, content pushed to bottom --- */
+.card-overlay--front {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-end;
+  padding: 0 60px 165px;
+}
+
+/* --- Back Overlay (Layer 2) — full card, content pushed to bottom --- */
+.card-overlay--back {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: flex-end;
+  padding: 0 60px 184px;
+}
+
+/* --- Card Typography --- */
+.card-title {
+  font-family: var(--font-heading);
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
+}
+
+.card-subtitle {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.card-description {
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.card-description p {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.card-description p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Buttons --- */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 18px;
+  background: var(--color-btn-dark);
+  color: #fff;
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  user-select: none;
+}
+
+.card-cta:hover {
+  background: var(--color-btn-dark-hover);
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding-top: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 7px 14px;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  border: none;
+  user-select: none;
+}
+
+.btn-less {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-btn-outline);
+}
+
+.btn-less:hover {
+  color: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.btn-visit {
+  background: var(--color-btn-dark);
+  color: #fff;
+}
+
+.btn-visit:hover {
+  background: var(--color-btn-dark-hover);
+  transform: scale(1.04);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+}
+
+.arrow {
+  font-size: 0.85em;
+  transition: transform var(--transition-fast);
+}
+
+.btn-visit:hover .arrow {
+  transform: translateX(2px);
+}
+
+.btn-less:hover .arrow {
+  transform: translateX(-2px);
+}
+
+/* --- Carousel Navigation Arrows --- */
+.carousel-nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: -150px;
+  padding-bottom: 20px;
+}
+
+.nav-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text);
+  background: transparent;
+  color: var(--color-text);
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.nav-arrow:hover {
+  background: var(--color-text);
+  color: #fff;
+}
+
+/* --- Footer --- */
+.site-footer {
+  margin-top: auto;
+  padding: 36px 24px 28px;
+  text-align: center;
+}
+
+.footer-text {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* ============================================================
+   SPLASH SCREEN
+   ============================================================ */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease;
+}
+
+.splash.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-logo {
+  width: 140px;
+  height: auto;
+}
+
+/* ============================================================
+   ENTRANCE ANIMATIONS — only play after splash finishes
+   ============================================================ */
+.site-header,
+.hero-heading,
+.hero-bio,
+.card,
+.carousel-nav,
+.site-footer {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+body.loaded .site-header,
+body.loaded .hero-heading,
+body.loaded .hero-bio,
+body.loaded .card,
+body.loaded .carousel-nav,
+body.loaded .site-footer {
+  animation: fadeSlideUp 0.7s ease forwards;
+}
+
+body.loaded .site-header    { animation-delay: 0.05s; }
+body.loaded .hero-heading   { animation-delay: 0.15s; }
+body.loaded .hero-bio       { animation-delay: 0.28s; }
+body.loaded .card[data-index="0"] { animation-delay: 0.42s; }
+body.loaded .card[data-index="1"] { animation-delay: 0.52s; }
+body.loaded .card[data-index="2"] { animation-delay: 0.62s; }
+body.loaded .card[data-index="3"] { animation-delay: 0.72s; }
+body.loaded .carousel-nav   { animation-delay: 0.82s; }
+body.loaded .site-footer    { animation-delay: 0.9s; }
+
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  :root {
+    --card-width: 368px;
+    --card-height: 507px;
+    --card-gap: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --card-width: 320px;
+    --card-height: 441px;
+    --card-gap: 18px;
+  }
+
+  .site-header {
+    padding: 24px 0 4px;
+  }
+
+  .logo {
+    width: 48px;
+  }
+
+  .hero {
+    padding: 12px 20px 24px;
+  }
+
+  .carousel {
+    padding-top: 50px;
+    padding-bottom: 16px;
+  }
+
+  .card-overlay--front {
+    padding: 0 20px 22px;
+  }
+
+  .card-overlay--back {
+    padding: 0 20px 20px;
+  }
+
+  .card-description p {
+    font-size: 0.76rem;
+  }
+
+  .site-footer {
+    padding: 24px 20px 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  :root {
+    --card-width: 290px;
+    --card-height: 400px;
+  }
+}
