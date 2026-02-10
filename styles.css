@@ -185,6 +185,7 @@ body::before {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 
 .card-front {
@@ -193,7 +194,7 @@ body::before {
 }
 
 .card-back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translate3d(0, 0, 0);
   overflow: hidden;
 }
 
@@ -481,6 +482,18 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
     --card-height: 507px;
     --card-gap: 22px;
   }
+
+  .card-overlay--front {
+    padding: 0 52px 143px;
+  }
+
+  .card-overlay--back {
+    padding: 0 52px 159px;
+  }
+
+  .carousel-nav {
+    margin-top: -130px;
+  }
 }
 
 @media (max-width: 640px) {
@@ -503,24 +516,69 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
   }
 
   .carousel {
-    padding-top: 50px;
+    padding-top: 40px;
     padding-bottom: 16px;
   }
 
   .card-overlay--front {
-    padding: 0 20px 22px;
+    padding: 0 40px 124px;
   }
 
   .card-overlay--back {
-    padding: 0 20px 20px;
+    padding: 0 40px 138px;
+  }
+
+  .card-title {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+  }
+
+  .card-subtitle {
+    font-size: 0.68rem;
+    margin-bottom: 8px;
+  }
+
+  .card-cta {
+    padding: 6px 14px;
+    font-size: 0.6rem;
   }
 
   .card-description p {
-    font-size: 0.76rem;
+    font-size: 0.65rem;
+    line-height: 1.45;
+    margin-bottom: 5px;
+  }
+
+  .card-description {
+    margin-bottom: 6px;
+  }
+
+  .card-actions {
+    gap: 8px;
+    padding-top: 6px;
+  }
+
+  .btn {
+    padding: 5px 10px;
+    font-size: 0.6rem;
+  }
+
+  .carousel-nav {
+    margin-top: -110px;
+  }
+
+  .nav-arrow {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
 
   .site-footer {
     padding: 24px 20px 20px;
+  }
+
+  .footer-text {
+    font-size: 0.72rem;
   }
 }
 
@@ -528,5 +586,40 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
   :root {
     --card-width: 290px;
     --card-height: 400px;
+  }
+
+  .card-overlay--front {
+    padding: 0 32px 112px;
+  }
+
+  .card-overlay--back {
+    padding: 0 32px 125px;
+  }
+
+  .card-title {
+    font-size: 0.78rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.62rem;
+  }
+
+  .card-cta {
+    padding: 5px 12px;
+    font-size: 0.55rem;
+  }
+
+  .card-description p {
+    font-size: 0.6rem;
+    line-height: 1.4;
+  }
+
+  .btn {
+    padding: 4px 8px;
+    font-size: 0.55rem;
+  }
+
+  .carousel-nav {
+    margin-top: -100px;
   }
 }
