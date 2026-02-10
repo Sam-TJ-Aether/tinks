@@ -498,8 +498,8 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
 
 @media (max-width: 640px) {
   :root {
-    --card-width: 320px;
-    --card-height: 441px;
+    --card-width: 384px;
+    --card-height: 529px;
     --card-gap: 18px;
   }
 
@@ -521,11 +521,11 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
   }
 
   .card-overlay--front {
-    padding: 0 40px 124px;
+    padding: 0 48px 149px;
   }
 
   .card-overlay--back {
-    padding: 0 40px 138px;
+    padding: 0 48px 166px;
   }
 
   .card-title {
@@ -564,7 +564,7 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
   }
 
   .carousel-nav {
-    margin-top: -110px;
+    margin-top: -132px;
   }
 
   .nav-arrow {
@@ -584,16 +584,16 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
 
 @media (max-width: 380px) {
   :root {
-    --card-width: 290px;
-    --card-height: 400px;
+    --card-width: 348px;
+    --card-height: 480px;
   }
 
   .card-overlay--front {
-    padding: 0 32px 112px;
+    padding: 0 40px 135px;
   }
 
   .card-overlay--back {
-    padding: 0 32px 125px;
+    padding: 0 40px 150px;
   }
 
   .card-title {
@@ -620,6 +620,6 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
   }
 
   .carousel-nav {
-    margin-top: -100px;
+    margin-top: -120px;
   }
 }
