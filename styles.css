@@ -478,21 +478,21 @@ body.loaded .site-footer    { animation-delay: 0.9s; }
    ============================================================ */
 @media (max-width: 1024px) {
   :root {
-    --card-width: 368px;
-    --card-height: 507px;
+    --card-width: 405px;
+    --card-height: 558px;
     --card-gap: 22px;
   }
 
   .card-overlay--front {
-    padding: 0 52px 143px;
+    padding: 0 57px 157px;
   }
 
   .card-overlay--back {
-    padding: 0 52px 159px;
+    padding: 0 57px 175px;
   }
 
   .carousel-nav {
-    margin-top: -130px;
+    margin-top: -143px;
   }
 }
 
